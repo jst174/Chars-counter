@@ -7,7 +7,7 @@ public class Main {
 
     public static void main(String[] args) {
         try (Scanner scanner = new Scanner(System.in)) {
-            CharCountable counter = new CacheCounter(new CharsCounter());
+            CharCountable counter = new CacheCharsCounter(new CharsCounter());
             while (true) {
                 System.out.println("Enter your line or enter \"quit\" to terminate the execution of the program");
                 String text = scanner.nextLine();

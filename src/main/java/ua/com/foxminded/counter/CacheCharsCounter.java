@@ -4,12 +4,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class CacheCounter extends CounterDecorator {
+public class CacheCharsCounter extends CounterDecorator {
 
     private Map<String, Map<Character, Long>> cache = new HashMap<>();
     private CharCountable counter;
 
-    public CacheCounter(CharCountable counter) {
+    public CacheCharsCounter(CharCountable counter) {
         super(counter);
     }
 
