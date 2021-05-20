@@ -5,22 +5,17 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
+import java.util.function.Function;
+import static java.util.stream.Collectors.*;
 
-public class CharsCounter implements Counter {
+public class CharsCounter implements CharCountable {
 
-    public Map<Character, Integer> countCharacters(String input) {
-        if (input == null) {
+    public Map<Character, Long> countCharacters(String text) {
+        if (text == null) {
             throw new IllegalArgumentException();
         }
-        List<Character> characters = input.chars().mapToObj(e -> (char) e).collect(Collectors.toList());
-        Map<Character, Integer> result = characters.stream().collect(LinkedHashMap::new, (m, k) -> {
-            if (m.containsKey(k)) {
-                m.put(k, m.get(k) + 1);
-            } else {
-                m.put(k, 1);
-            }
-        }, LinkedHashMap::putAll);
+        Map<Character, Long> result = text.chars().mapToObj(e -> (char) e)
+                .collect(groupingBy(Function.identity(), LinkedHashMap::new, counting()));  
         return result;
     }
 }

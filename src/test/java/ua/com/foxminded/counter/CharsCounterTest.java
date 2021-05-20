@@ -25,16 +25,16 @@ class CharsCounterTest {
     @Test
     void countCharacters_shouldReturnsNembersOfUniqueCharacters() {
         String input = "hello world!";
-        Map<Character, Integer> expected = new LinkedHashMap<>();
-        expected.put('h', 1);
-        expected.put('e', 1);
-        expected.put('l', 3);
-        expected.put('o', 2);
-        expected.put(' ', 1);
-        expected.put('w', 1);
-        expected.put('r', 1);
-        expected.put('d', 1);
-        expected.put('!', 1);
+        Map<Character, Long> expected = new LinkedHashMap<>();
+        expected.put('h', 1l);
+        expected.put('e', 1l);
+        expected.put('l', 3l);
+        expected.put('o', 2l);
+        expected.put(' ', 1l);
+        expected.put('w', 1l);
+        expected.put('r', 1l);
+        expected.put('d', 1l);
+        expected.put('!', 1l);
 
         assertEquals(expected, counter.countCharacters(input));
     }

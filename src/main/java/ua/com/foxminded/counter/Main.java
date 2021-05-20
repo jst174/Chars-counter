@@ -7,14 +7,14 @@ public class Main {
 
     public static void main(String[] args) {
         try (Scanner scanner = new Scanner(System.in)) {
-            Counter counter = new Cache(new CharsCounter());
+            CharCountable counter = new CacheCounter(new CharsCounter());
             while (true) {
                 System.out.println("Enter your line or enter \"quit\" to terminate the execution of the program");
-                String input = scanner.nextLine();
-                if (input.equals("quit")) {
+                String text = scanner.nextLine();
+                if (text.equals("quit")) {
                     break;
                 }
-                for (Map.Entry<Character, Integer> entry : counter.countCharacters(input).entrySet()) {
+                for (Map.Entry<Character, Long> entry : counter.countCharacters(text).entrySet()) {
                     System.out.println("\"" + entry.getKey() + "\"" + " - " + entry.getValue());
                 }
             }

@@ -2,18 +2,17 @@ package ua.com.foxminded.counter;
 
 import java.util.Map;
 
-public class CounterDecorator implements Counter {
+public class CounterDecorator implements CharCountable {
 
-    Counter counter;
+    protected CharCountable counter;
 
-    public CounterDecorator(Counter counter) {
-        super();
+    public CounterDecorator(CharCountable counter) {
         this.counter = counter;
     }
 
     @Override
-    public Map<Character, Integer> countCharacters(String input) {
-        return counter.countCharacters(input);
+    public Map<Character, Long> countCharacters(String text) {
+        return counter.countCharacters(text);
     }
 
 }
