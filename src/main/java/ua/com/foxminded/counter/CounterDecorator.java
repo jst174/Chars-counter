@@ -2,11 +2,11 @@ package ua.com.foxminded.counter;
 
 import java.util.Map;
 
-public class CounterDecorator implements CharCountable {
+public class CounterDecorator implements CharsCounter {
 
-    protected CharCountable counter;
+    protected CharsCounter counter;
 
-    public CounterDecorator(CharCountable counter) {
+    public CounterDecorator(CharsCounter counter) {
         this.counter = counter;
     }
 

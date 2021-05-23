@@ -1,5 +1,7 @@
 package ua.com.foxminded.counter;
 
+import java.io.FilterInputStream;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -7,18 +9,18 @@ import java.util.stream.Collectors;
 public class CacheCharsCounter extends CounterDecorator {
 
     private Map<String, Map<Character, Long>> cache = new HashMap<>();
-    private CharCountable counter;
+    private CharsCounter counter;
 
-    public CacheCharsCounter(CharCountable counter) {
+    public CacheCharsCounter(CharsCounter counter) {
         super(counter);
     }
 
     @Override
     public Map<Character, Long> countCharacters(String text) {
-        Map<Character, Long> resultOfCount = super.countCharacters(text);
-        Map<Character, Long> result = cache.getOrDefault(text, resultOfCount);
-        cache.putIfAbsent(text, resultOfCount);
-        return result;
+        if (text == null) {
+            throw new IllegalArgumentException();
+        }
+        return cache.merge(text, super.countCharacters(text), (a, b) -> a);
     }
 
 }
