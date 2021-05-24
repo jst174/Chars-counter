@@ -8,15 +8,15 @@ import java.util.Map;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class ExecutingCharsCounterTest {
+class UniqueCharsCounterTest {
 
-    private ExecutingCharsCounter counter;
+    private UniqueCharsCounter counter;
 
     @BeforeEach
     void setUp() {
-        counter = new ExecutingCharsCounter();
+        counter = new UniqueCharsCounter();
     }
-    
+
     @Test
     void countCharacters_argumentIsNull_shouldThrowException() {
         assertThrows(IllegalArgumentException.class, () -> counter.countCharacters(null));
@@ -38,7 +38,7 @@ class ExecutingCharsCounterTest {
 
         assertEquals(expected, counter.countCharacters(text));
     }
-    
+
     @Test
     void countCharacters_argumentContainsUppercaseChars_ShoudCountHowUniqueCharacter() {
         String text = "Hello, human!";
@@ -56,14 +56,15 @@ class ExecutingCharsCounterTest {
         expected.put('a', 1l);
         expected.put('n', 1l);
         expected.put('!', 1l);
-        
+
         assertEquals(expected, counter.countCharacters(text));
     }
-    
-    @Test void counCharacters_argumentIsEmpty_ShouldReturnNothing(){
+
+    @Test
+    void counCharacters_argumentIsEmpty_ShouldReturnNothing() {
         String text = "";
         Map<Character, Long> expected = new LinkedHashMap<>();
-        
+
         assertEquals(expected, counter.countCharacters(text));
     }
 

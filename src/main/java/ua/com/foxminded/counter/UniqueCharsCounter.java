@@ -8,9 +8,9 @@ import java.util.Map;
 import java.util.function.Function;
 import static java.util.stream.Collectors.*;
 
-public class ExecutingCharsCounter implements CharsCounter {
+public class UniqueCharsCounter implements CharsCounter {
 
-    protected CharsCounter counter;
+    protected CharsCounter charsCounter;
 
     public Map<Character, Long> countCharacters(String text) {
         if (text == null) {

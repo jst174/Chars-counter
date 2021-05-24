@@ -2,12 +2,17 @@ package ua.com.foxminded.counter;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
+import static org.mockito.Mockito.times;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
@@ -15,23 +20,20 @@ import org.mockito.junit.jupiter.MockitoExtension;
 class CacheCharsCounterTest {
 
     @Mock
-    CharsCounter counter;
-    Map<String, Map<Character, Long>> cache;
+    private UniqueCharsCounter uniqueCharsCounter;
+    @Mock
+    private CacheCharsCounter cacheCharsCounter;
+    private CharsCounter charsCounter;
 
     @Test
     public void countCharacters_ShouldReturnResultFromCache() {
         String text = "hello";
-        cache = new LinkedHashMap<>();
-        Map<Character, Long> resultOfCount = new LinkedHashMap<>();
-        resultOfCount.put('h', 1l);
-        resultOfCount.put('e', 1l);
-        resultOfCount.put('l', 2l);
-        resultOfCount.put('o', 1l);
-        cache.put(text, resultOfCount);
-        when(counter.countCharacters(text)).thenReturn(cache.get(text));
+        charsCounter = new CacheCharsCounter(uniqueCharsCounter);
+        charsCounter.countCharacters(text);
+        charsCounter.countCharacters(text);
 
-        CharsCounter charsCounter = new CacheCharsCounter(counter);
+        verify(uniqueCharsCounter, times(1)).countCharacters(text);
+        verify(cacheCharsCounter, times(1)).countCharacters(text);
 
-        assertEquals(cache.get(text), counter.countCharacters(text));
     }
 }
