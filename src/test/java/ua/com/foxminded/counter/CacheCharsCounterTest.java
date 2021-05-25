@@ -14,6 +14,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
@@ -21,19 +22,24 @@ class CacheCharsCounterTest {
 
     @Mock
     private UniqueCharsCounter uniqueCharsCounter;
-    @Mock
+    @InjectMocks
     private CacheCharsCounter cacheCharsCounter;
-    private CharsCounter charsCounter;
 
     @Test
     public void countCharacters_ShouldReturnResultFromCache() {
         String text = "hello";
-        charsCounter = new CacheCharsCounter(uniqueCharsCounter);
-        charsCounter.countCharacters(text);
-        charsCounter.countCharacters(text);
+        Map<Character, Long> resultOfCount = new LinkedHashMap<>();
+        resultOfCount.put('h', 1l);
+        resultOfCount.put('e', 1l);
+        resultOfCount.put('l', 2l);
+        resultOfCount.put('o', 1l);
 
-        verify(uniqueCharsCounter, times(1)).countCharacters(text);
-        verify(cacheCharsCounter, times(1)).countCharacters(text);
+        when(uniqueCharsCounter.countCharacters(text)).thenReturn(resultOfCount);
+
+        Map<Character, Long> resultOfCounter = uniqueCharsCounter.countCharacters(text);
+        Map<Character, Long> resultOfCache = cacheCharsCounter.countCharacters(text);
+
+        assertSame(resultOfCounter, resultOfCache);
 
     }
 }
