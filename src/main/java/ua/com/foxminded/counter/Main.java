@@ -14,9 +14,7 @@ public class Main {
                 if (text.equals("quit")) {
                     break;
                 }
-                for (Map.Entry<Character, Long> entry : charsCounter.countCharacters(text).entrySet()) {
-                    System.out.println("\"" + entry.getKey() + "\"" + " - " + entry.getValue());
-                }
+                charsCounter.countCharacters(text).forEach((a, b) -> System.out.println("\"" + a + "\"" + " - " + b));
             }
         } catch (Exception e) {
             e.printStackTrace();
