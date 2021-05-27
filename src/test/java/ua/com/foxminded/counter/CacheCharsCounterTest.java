@@ -37,10 +37,11 @@ class CacheCharsCounterTest {
 
         when(charsCounter.countCharacters(text)).thenReturn(expected);
 
-        cacheCharsCounter.countCharacters(text);
+        Map<Character, Long> actual = cacheCharsCounter.countCharacters(text);
         cacheCharsCounter.countCharacters(text);
 
-        verify(charsCounter, times(1)).countCharacters(text);
+        verify(charsCounter).countCharacters(text);
+        assertEquals(expected, actual);
 
     }
 }
